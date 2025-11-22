@@ -34,19 +34,24 @@ export const MASTER_SONG_LIST: Song[] = [
   { id: 12, title: 'Despacito', artist: 'Luis Fonsi ft. Daddy Yankee', genre: 'Reggaeton' },
   { id: 13, title: 'Tusa', artist: 'Karol G ft. Nicki Minaj', genre: 'Reggaeton' },
   { id: 14, title: 'Safaera', artist: 'Bad Bunny', genre: 'Reggaeton' },
+  { id: 41, title: 'Lo Que Pasó, Pasó', artist: 'Daddy Yankee', genre: 'Reggaeton' },
 
   // Metal
   { id: 15, title: 'Enter Sandman', artist: 'Metallica', genre: 'Metal' },
   { id: 16, title: 'Chop Suey!', artist: 'System of a Down', genre: 'Metal' },
   { id: 17, title: 'Master of Puppets', artist: 'Metallica', genre: 'Metal' },
   { id: 18, title: 'Painkiller', artist: 'Judas Priest', genre: 'Metal' },
+  { id: 43, title: 'The Beautiful People', artist: 'Marilyn Manson', genre: 'Metal Industrial' },
 
   // Pop Español
   { id: 19, title: 'Corazón Partío', artist: 'Alejandro Sanz', genre: 'Pop Español' },
-  { id: 20, title: 'La Flaca', artist: 'Jarabe de Palo', genre: 'Rock Español' },
   { id: 21, title: 'Hijo de la Luna', artist: 'Mecano', genre: 'Pop Español' },
+
+  // Rock Español
+  { id: 20, title: 'La Flaca', artist: 'Jarabe de Palo', genre: 'Rock Español' },
   { id: 22, title: 'Me Gustas Tú', artist: 'Manu Chao', genre: 'Rock Español' },
   { id: 23, title: 'Rayando el Sol', artist: 'Maná', genre: 'Rock Español' },
+  { id: 46, title: 'Clavado en un Bar', artist: 'Maná', genre: 'Rock Español' },
 
   // Pop Internacional
   { id: 24, title: 'Dancing Queen', artist: 'ABBA', genre: 'Disco' },
@@ -56,22 +61,36 @@ export const MASTER_SONG_LIST: Song[] = [
   { id: 28, title: 'Bohemian Rhapsody', artist: 'Queen', genre: 'Rock' },
   { id: 29, title: 'Shake It Off', artist: 'Taylor Swift', genre: 'Pop' },
 
-  // Rock Alternativo / Indie
+  // Rock Alternativo
   { id: 30, title: 'Mr. Brightside', artist: 'The Killers', genre: 'Indie Rock' },
   { id: 31, title: 'Wonderwall', artist: 'Oasis', genre: 'Britpop' },
   { id: 32, title: 'Seven Nation Army', artist: 'The White Stripes', genre: 'Rock Alternativo' },
   { id: 33, title: 'Smells Like Teen Spirit', artist: 'Nirvana', genre: 'Grunge' },
+  { id: 42, title: 'Don\'t Speak', artist: 'No Doubt', genre: 'Rock Alternativo' },
 
-  // Regional Mexicano / Cumbia
-  { id: 34, title: 'La Chona', artist: 'Los Tucanes de Tijuana', genre: 'Regional Mexicano' },
+  // Cumbia
   { id: 35, title: 'El Listón de Tu Pelo', artist: 'Los Ángeles Azules', genre: 'Cumbia' },
-  { id: 36, title: 'Amor a la Mexicana', artist: 'Thalía', genre: 'Pop Latino' },
+  { id: 47, title: 'Una Canción', artist: 'Los de Adentro', genre: 'Cumbia' },
 
-  // Hip Hop / R&B
+  // Regional Mexicano
+  { id: 34, title: 'La Chona', artist: 'Los Tucanes de Tijuana', genre: 'Regional Mexicano' },
+
+  // Pop Latino
+  { id: 36, title: 'Amor a la Mexicana', artist: 'Thalía', genre: 'Pop Latino' },
+  { id: 44, title: 'Pegate', artist: 'Ricky Martin', genre: 'Pop Latino' },
+
+  // Hip Hop
   { id: 37, title: 'Lose Yourself', artist: 'Eminem', genre: 'Hip Hop' },
-  { id: 38, title: 'Crazy in Love', artist: 'Beyoncé ft. Jay-Z', genre: 'R&B' },
   { id: 39, title: 'In Da Club', artist: '50 Cent', genre: 'Hip Hop' },
-  { id: 40, title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars', genre: 'Funk' }
+
+  // R&B
+  { id: 38, title: 'Crazy in Love', artist: 'Beyoncé ft. Jay-Z', genre: 'R&B' },
+
+  // Funk
+  { id: 40, title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars', genre: 'Funk' },
+
+  // K-Pop
+  { id: 45, title: 'Gangnam Style', artist: 'PSY', genre: 'K-Pop' }
 ];
 
 export const SONGS_DATA = new InjectionToken<Song[]>('SONGS_DATA', {

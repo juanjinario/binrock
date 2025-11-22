@@ -37,7 +37,25 @@
     <mat-card class="generate-card" @fadeIn>
       <mat-card-content>
         <div class="generate-content">
-          <mat-icon class="big-icon">casino</mat-icon>
+          <div class="reindeer-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="80" height="80">
+              <!-- Cabeza -->
+              <ellipse cx="32" cy="35" rx="12" ry="14" fill="#8B4513"/>
+              <!-- Orejas -->
+              <ellipse cx="24" cy="26" rx="3" ry="5" fill="#8B4513"/>
+              <ellipse cx="40" cy="26" rx="3" ry="5" fill="#8B4513"/>
+              <!-- Astas -->
+              <path d="M 20 20 L 18 12 M 20 20 L 16 18 M 20 20 L 22 15" stroke="#654321" stroke-width="2" fill="none"/>
+              <path d="M 44 20 L 46 12 M 44 20 L 48 18 M 44 20 L 42 15" stroke="#654321" stroke-width="2" fill="none"/>
+              <!-- Ojos -->
+              <circle cx="28" cy="33" r="2" fill="#000"/>
+              <circle cx="36" cy="33" r="2" fill="#000"/>
+              <!-- Nariz roja -->
+              <circle cx="32" cy="38" r="3" fill="#FF0000"/>
+              <!-- Sonrisa -->
+              <path d="M 28 42 Q 32 44 36 42" stroke="#000" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
           <h2>¡Bienvenido a la Partida!</h2>
           <p>Genera tu cartón aleatorio con 16 canciones. Una vez generado, no podrás cambiarlo.</p>
           <button mat-raised-button color="primary" (click)="generateNewBoard()" class="generate-button">
