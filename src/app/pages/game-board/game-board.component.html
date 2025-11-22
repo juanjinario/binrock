@@ -1,17 +1,17 @@
 <div class="game-container">
-  <mat-card class="game-header" @fadeIn>
-    <mat-card-header>
-      <mat-card-title>🎵 BinRock Musical</mat-card-title>
-      <mat-card-subtitle>ID de Partida: {{ gameId() }}</mat-card-subtitle>
-    </mat-card-header>
-    
-    @if (hasGeneratedBoard()) {
-      <mat-card-content>
-        <div class="stats">
+  <!-- Header compacto solo con info -->
+  @if (hasGeneratedBoard()) {
+    <div class="game-info" @fadeIn>
+      <div class="info-row">
+        <div class="game-id">
+          <mat-icon>tag</mat-icon>
+          <span>{{ gameId() }}</span>
+        </div>
+        <div class="stats-compact">
           <mat-chip-set>
             <mat-chip>
               <mat-icon>check_circle</mat-icon>
-              {{ markedCount() }} / {{ board().length }} marcadas
+              {{ markedCount() }}/{{ board().length }}
             </mat-chip>
             @if (hasBingo()) {
               <mat-chip color="accent" highlighted>
@@ -21,19 +21,17 @@
             }
           </mat-chip-set>
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-stroked-button (click)="shareGame()">
-          <mat-icon>share</mat-icon>
-          Compartir Link
-        </button>
-        <button mat-stroked-button (click)="resetBoard()">
-          <mat-icon>refresh</mat-icon>
-          Limpiar Marcas
-        </button>
-      </mat-card-actions>
-    }
-  </mat-card>
+        <div class="actions-compact">
+          <button mat-icon-button (click)="shareGame()" matTooltip="Compartir link">
+            <mat-icon>share</mat-icon>
+          </button>
+          <button mat-icon-button (click)="resetBoard()" matTooltip="Limpiar marcas">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 
   @if (!hasGeneratedBoard()) {
     <mat-card class="generate-card" @fadeIn>

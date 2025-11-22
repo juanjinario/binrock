@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { MASTER_SONG_LIST, GAME_CONFIG, Song } from '../../data/songs.config';
 import { StorageService } from '../../services/storage.service';
@@ -26,7 +27,8 @@ interface BingoCell {
     MatIconModule,
     MatGridListModule,
     MatChipsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   templateUrl: './game-board.component.html',
   styleUrl: './game-board.component.scss',
