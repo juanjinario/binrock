@@ -118,20 +118,73 @@
 
 @media (max-width: 768px) {
   .game-container {
-    padding: 12px;
+    padding: 8px;
   }
 
-  .bingo-board .song-cell {
-    .song-title {
-      font-size: 0.7rem;
+  .bingo-board {
+    padding: 8px;
+
+    // Forzar 3 columnas en móviles usando CSS
+    ::ng-deep .mat-grid-list {
+      .mat-grid-list-cols-4 {
+        // Sobrescribir las 4 columnas por defecto
+        .mat-grid-tile {
+          width: calc(33.333% - 8px) !important;
+        }
+      }
     }
 
-    .song-artist {
-      font-size: 0.65rem;
-    }
+    .song-cell {
+      padding: 6px;
 
-    .song-genre {
-      font-size: 0.6rem;
+      .check-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .song-title {
+        font-size: 0.75rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+
+      .song-artist {
+        font-size: 0.7rem;
+      }
+
+      .song-genre {
+        font-size: 0.6rem;
+      }
+    }
+  }
+}
+
+// Para pantallas muy pequeñas (móviles en vertical)
+@media (max-width: 480px) {
+  .bingo-board {
+    padding: 4px;
+
+    .song-cell {
+      padding: 4px;
+
+      .check-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+
+      .song-title {
+        font-size: 0.7rem;
+      }
+
+      .song-artist {
+        font-size: 0.65rem;
+      }
+
+      .song-genre {
+        font-size: 0.55rem;
+      }
     }
   }
 }
