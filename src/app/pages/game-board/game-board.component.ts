@@ -7,7 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { MASTER_SONG_LIST, GAME_CONFIG, Song } from '../../data/songs.config';
+import { StorageService } from '../../services/storage.service';
 
 interface BingoCell {
   song: Song;
@@ -27,27 +29,87 @@ interface BingoCell {
     MatSnackBarModule
   ],
   templateUrl: './game-board.component.html',
-  styleUrl: './game-board.component.scss'
+  styleUrl: './game-board.component.scss',
+  animations: [
+    trigger('boardAnimation', [
+      transition(':enter', [
+        query('.song-cell', [
+          style({ opacity: 0, transform: 'scale(0.8)' }),
+          stagger(30, [
+            animate('300ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))
+          ])
+        ], { optional: true })
+      ])
+    ]),
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-20px)' }),
+        animate('400ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
 export class GameBoardComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private snackBar = inject(MatSnackBar);
+  private storage = inject(StorageService);
 
   // Signals
   gameId = signal<string>('');
   board = signal<BingoCell[]>([]);
+  hasGeneratedBoard = signal<boolean>(false);
   
   // Computed signals
   markedCount = computed(() => this.board().filter(cell => cell.marked).length);
   hasBingo = computed(() => this.checkBingo());
 
   ngOnInit() {
+    // Limpiar juegos antiguos al cargar
+    this.storage.cleanOldGames();
+
     // Obtener el ID del juego desde los query params
     this.route.queryParams.subscribe(params => {
       const id = params['id'] || this.generateGameId();
       this.gameId.set(id);
-      this.generateBoard();
+      
+      // Verificar si ya existe un tablero guardado
+      this.loadOrWaitForBoard();
     });
+  }
+
+  private loadOrWaitForBoard() {
+    const savedState = this.storage.getGameState(this.gameId());
+    
+    if (savedState) {
+      // Cargar tablero existente desde localStorage
+      this.loadBoardFromState(savedState);
+      this.hasGeneratedBoard.set(true);
+    } else {
+      // Esperando a que el usuario genere su cartón
+      this.hasGeneratedBoard.set(false);
+    }
+  }
+
+  private loadBoardFromState(state: any) {
+    const cells: BingoCell[] = state.boardData.map((songId: number, index: number) => {
+      const song = MASTER_SONG_LIST.find(s => s.id === songId);
+      return {
+        song: song!,
+        marked: state.markedCells[index]
+      };
+    });
+    this.board.set(cells);
+  }
+
+  generateNewBoard() {
+    if (this.hasGeneratedBoard()) {
+      this.snackBar.open('Ya tienes un cartón generado para esta partida', 'OK', { duration: 3000 });
+      return;
+    }
+
+    this.generateBoard();
+    this.hasGeneratedBoard.set(true);
+    this.snackBar.open('¡Cartón generado! Buena suerte 🎵', 'OK', { duration: 2000 });
   }
 
   private generateGameId(): string {
@@ -65,12 +127,21 @@ export class GameBoardComponent implements OnInit {
     }));
 
     this.board.set(cells);
+    
+    // Guardar en localStorage
+    const boardData = cells.map(cell => cell.song.id);
+    const markedCells = cells.map(cell => cell.marked);
+    this.storage.saveGameState(this.gameId(), boardData, markedCells);
   }
 
   toggleCell(index: number) {
     const currentBoard = [...this.board()];
     currentBoard[index].marked = !currentBoard[index].marked;
     this.board.set(currentBoard);
+
+    // Guardar estado actualizado
+    const markedCells = currentBoard.map(cell => cell.marked);
+    this.storage.updateMarkedCells(this.gameId(), markedCells);
 
     // Verificar si hay BINGO
     if (this.hasBingo()) {
@@ -131,7 +202,22 @@ export class GameBoardComponent implements OnInit {
   }
 
   resetBoard() {
-    const resetBoard = this.board().map(cell => ({ ...cell, marked: false }));
-    this.board.set(resetBoard);
+    if (confirm('¿Estás seguro? Esto borrará todas tus marcas.')) {
+      const resetBoard = this.board().map(cell => ({ ...cell, marked: false }));
+      this.board.set(resetBoard);
+      
+      // Actualizar localStorage
+      const markedCells = resetBoard.map(cell => cell.marked);
+      this.storage.updateMarkedCells(this.gameId(), markedCells);
+    }
+  }
+
+  deleteBoard() {
+    if (confirm('¿Eliminar tu cartón? Tendrás que generar uno nuevo.')) {
+      this.storage.clearGameState(this.gameId());
+      this.board.set([]);
+      this.hasGeneratedBoard.set(false);
+      this.snackBar.open('Cartón eliminado', 'OK', { duration: 2000 });
+    }
   }
 }

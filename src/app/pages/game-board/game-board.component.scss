@@ -12,6 +12,7 @@
     display: flex;
     gap: 8px;
     padding: 16px;
+    flex-wrap: wrap;
     
     button mat-icon {
       margin-right: 4px;
@@ -20,6 +21,54 @@
 
   .stats {
     margin-top: 12px;
+  }
+}
+
+.generate-card {
+  margin-top: 20px;
+
+  .generate-content {
+    text-align: center;
+    padding: 40px 20px;
+
+    .big-icon {
+      font-size: 80px;
+      width: 80px;
+      height: 80px;
+      color: #3f51b5;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      margin: 0 0 16px 0;
+      color: #333;
+      font-size: 1.8rem;
+    }
+
+    p {
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .generate-button {
+      font-size: 1.1rem;
+      padding: 12px 32px;
+      height: auto;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #999;
+    }
   }
 }
 
