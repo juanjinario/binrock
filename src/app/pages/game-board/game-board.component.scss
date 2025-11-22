@@ -1,0 +1,137 @@
+.game-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.game-header {
+  mat-card-actions {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    
+    button mat-icon {
+      margin-right: 4px;
+    }
+  }
+
+  .stats {
+    margin-top: 12px;
+  }
+}
+
+.bingo-board {
+  padding: 16px;
+
+  mat-grid-list {
+    width: 100%;
+  }
+
+  .song-cell {
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+      border-color: #3f51b5;
+      transform: scale(1.02);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    &.marked {
+      background-color: #c5cae9;
+      border-color: #3f51b5;
+
+      .check-icon {
+        color: #3f51b5;
+      }
+
+      .song-info {
+        opacity: 0.8;
+      }
+    }
+
+    .cell-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      gap: 4px;
+    }
+
+    .check-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+      color: #bdbdbd;
+      transition: color 0.3s ease;
+    }
+
+    .song-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: 100%;
+    }
+
+    .song-title {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #333;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .song-artist {
+      font-size: 0.75rem;
+      color: #666;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .song-genre {
+      font-size: 0.65rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .game-container {
+    padding: 12px;
+  }
+
+  .bingo-board .song-cell {
+    .song-title {
+      font-size: 0.7rem;
+    }
+
+    .song-artist {
+      font-size: 0.65rem;
+    }
+
+    .song-genre {
+      font-size: 0.6rem;
+    }
+  }
+}

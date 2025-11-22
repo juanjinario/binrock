@@ -1,0 +1,104 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 20px 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.welcome-card {
+  .header-icon {
+    background-color: #3f51b5;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+
+  img {
+    max-height: 300px;
+    object-fit: cover;
+  }
+
+  .intro-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 16px 0;
+    color: #555;
+  }
+
+  h3 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    color: #333;
+  }
+
+  .instructions-list {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 1rem;
+
+      mat-icon {
+        color: #3f51b5;
+        flex-shrink: 0;
+      }
+
+      span {
+        flex: 1;
+      }
+    }
+  }
+
+  mat-card-actions {
+    padding: 16px;
+
+    button {
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.info-card {
+  .info-section {
+    display: flex;
+    gap: 16px;
+
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+
+    h4 {
+      margin: 0 0 8px 0;
+      color: #333;
+    }
+
+    p {
+      margin: 0;
+      color: #666;
+      line-height: 1.5;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .home-container {
+    padding: 12px;
+  }
+
+  .welcome-card img {
+    max-height: 200px;
+  }
+}

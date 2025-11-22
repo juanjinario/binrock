@@ -1,0 +1,57 @@
+<div class="game-container">
+  <mat-card class="game-header">
+    <mat-card-header>
+      <mat-card-title>🎵 BinRock Musical</mat-card-title>
+      <mat-card-subtitle>ID de Partida: {{ gameId() }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="stats">
+        <mat-chip-set>
+          <mat-chip>
+            <mat-icon>check_circle</mat-icon>
+            {{ markedCount() }} / {{ board().length }} marcadas
+          </mat-chip>
+          @if (hasBingo()) {
+            <mat-chip color="accent" highlighted>
+              <mat-icon>emoji_events</mat-icon>
+              ¡BINGO!
+            </mat-chip>
+          }
+        </mat-chip-set>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-stroked-button (click)="shareGame()">
+        <mat-icon>share</mat-icon>
+        Compartir Link
+      </button>
+      <button mat-stroked-button (click)="resetBoard()">
+        <mat-icon>refresh</mat-icon>
+        Reiniciar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="bingo-board">
+    <mat-grid-list cols="4" rowHeight="1:1" gutterSize="8">
+      @for (cell of board(); track cell.song.id; let i = $index) {
+        <mat-grid-tile>
+          <button 
+            class="song-cell"
+            [class.marked]="cell.marked"
+            (click)="toggleCell(i)"
+            mat-button>
+            <div class="cell-content">
+              <mat-icon class="check-icon">{{ cell.marked ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              <div class="song-info">
+                <div class="song-title">{{ cell.song.title }}</div>
+                <div class="song-artist">{{ cell.song.artist }}</div>
+                <div class="song-genre">{{ cell.song.genre }}</div>
+              </div>
+            </div>
+          </button>
+        </mat-grid-tile>
+      }
+    </mat-grid-list>
+  </mat-card>
+</div>
