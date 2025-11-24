@@ -9,9 +9,13 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
-import { SONGS_DATA, GAME_CONFIG } from '../../data/songs.config';
-import { ISong } from '../../core/interfaces/song.interface';
+import { fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SONGS_DATA } from '../../data/songs.config';
+import { ISong, IGameSettings } from '../../core/interfaces/song.interface';
 import { StorageService } from '../../services/storage.service';
+import { GameConfigService } from '../../services/game-config.service';
 
 interface BingoCell {
   song: ISong;
@@ -56,6 +60,7 @@ export class GameBoardComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private snackBar = inject(MatSnackBar);
   private storage = inject(StorageService);
+  private gameConfigService = inject(GameConfigService);
 
   constructor(@Inject(SONGS_DATA) private songs: ISong[]) {}
 
@@ -63,19 +68,55 @@ export class GameBoardComponent implements OnInit {
   gameId = signal<string>('');
   board = signal<BingoCell[]>([]);
   hasGeneratedBoard = signal<boolean>(false);
+  gameSettings = signal<IGameSettings>({
+    timestamp: '',
+    boardSize: 16,
+    winningCount: 16,
+    gameId: ''
+  });
+  isMobile = signal<boolean>(false);
   
   // Computed signals
   markedCount = computed(() => this.board().filter(cell => cell.marked).length);
-  hasBingo = computed(() => this.checkBingo());
+  hasBingo = computed(() => this.markedCount() >= this.gameSettings().winningCount);
+  gridCols = computed(() => {
+    // En móviles siempre 3 columnas, en desktop usar el tamaño configurado
+    if (this.isMobile()) {
+      return 3;
+    }
+    return this.gameConfigService.getGridColumns(this.gameSettings().boardSize);
+  });
 
   ngOnInit() {
+    // Detectar si es móvil
+    this.checkIfMobile();
+    
+    // Suscribirse a resize con debounce y auto-cleanup
+    fromEvent(window, 'resize')
+      .pipe(
+        debounceTime(200),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => this.checkIfMobile());
+
     // Limpiar juegos antiguos al cargar
     this.storage.cleanOldGames();
 
     // Obtener el ID del juego desde los query params
     this.route.queryParams.subscribe(params => {
-      const id = params['id'] || this.generateGameId();
-      this.gameId.set(id);
+      const id = params['id'];
+      
+      if (!id) {
+        // Si no hay ID, usar configuración por defecto
+        const defaultConfig = this.gameConfigService.decodeGameId('');
+        this.gameSettings.set(defaultConfig);
+        this.gameId.set(defaultConfig.gameId);
+      } else {
+        // Decodificar la configuración desde el ID
+        const config = this.gameConfigService.decodeGameId(id);
+        this.gameSettings.set(config);
+        this.gameId.set(id);
+      }
       
       // Verificar si ya existe un tablero guardado
       this.loadOrWaitForBoard();
@@ -96,8 +137,17 @@ export class GameBoardComponent implements OnInit {
   }
 
   private loadBoardFromState(state: any) {
+    // Actualizar configuración si está guardada en localStorage
+    if (state.boardSize && state.winningCount) {
+      this.gameSettings.update(settings => ({
+        ...settings,
+        boardSize: state.boardSize,
+        winningCount: state.winningCount
+      }));
+    }
+
     const cells: BingoCell[] = state.boardData.map((songId: number, index: number) => {
-      const song = this.songs.find(s => s.id === songId);
+      const song = this.songs.find(song => song.id === songId);
       return {
         song: song!,
         marked: state.markedCells[index]
@@ -117,14 +167,10 @@ export class GameBoardComponent implements OnInit {
     this.snackBar.open('¡Cartón generado! Buena suerte 🎵', 'OK', { duration: 2000 });
   }
 
-  private generateGameId(): string {
-    return Date.now().toString(36) + Math.random().toString(36).substring(2);
-  }
-
   private generateBoard() {
-    // Algoritmo: seleccionar 16 canciones aleatorias de la lista maestra
+    // Algoritmo: seleccionar N canciones aleatorias según boardSize
     const shuffled = [...this.songs].sort(() => Math.random() - 0.5);
-    const selectedSongs = shuffled.slice(0, GAME_CONFIG.defaultBoardSize);
+    const selectedSongs = shuffled.slice(0, this.gameSettings().boardSize);
     
     const cells: BingoCell[] = selectedSongs.map(song => ({
       song,
@@ -133,10 +179,16 @@ export class GameBoardComponent implements OnInit {
 
     this.board.set(cells);
     
-    // Guardar en localStorage
+    // Guardar en localStorage con configuración completa
     const boardData = cells.map(cell => cell.song.id);
     const markedCells = cells.map(cell => cell.marked);
-    this.storage.saveGameState(this.gameId(), boardData, markedCells);
+    this.storage.saveGameState(
+      this.gameId(), 
+      boardData, 
+      markedCells,
+      this.gameSettings().boardSize,
+      this.gameSettings().winningCount
+    );
   }
 
   toggleCell(index: number) {
@@ -152,42 +204,6 @@ export class GameBoardComponent implements OnInit {
     if (this.hasBingo()) {
       this.showBingoAlert();
     }
-  }
-
-  private checkBingo(): boolean {
-    const size = 4; // 4x4 grid
-    const board = this.board();
-    
-    // Verificar filas
-    for (let i = 0; i < size; i++) {
-      const row = board.slice(i * size, (i + 1) * size);
-      if (row.every(cell => cell.marked)) return true;
-    }
-
-    // Verificar columnas
-    for (let col = 0; col < size; col++) {
-      const column = [];
-      for (let row = 0; row < size; row++) {
-        column.push(board[row * size + col]);
-      }
-      if (column.every(cell => cell.marked)) return true;
-    }
-
-    // Verificar diagonal principal
-    const mainDiagonal = [];
-    for (let i = 0; i < size; i++) {
-      mainDiagonal.push(board[i * size + i]);
-    }
-    if (mainDiagonal.every(cell => cell.marked)) return true;
-
-    // Verificar diagonal secundaria
-    const antiDiagonal = [];
-    for (let i = 0; i < size; i++) {
-      antiDiagonal.push(board[i * size + (size - 1 - i)]);
-    }
-    if (antiDiagonal.every(cell => cell.marked)) return true;
-
-    return false;
   }
 
   private showBingoAlert() {
@@ -217,12 +233,7 @@ export class GameBoardComponent implements OnInit {
     }
   }
 
-  deleteBoard() {
-    if (confirm('¿Eliminar tu cartón? Tendrás que generar uno nuevo.')) {
-      this.storage.clearGameState(this.gameId());
-      this.board.set([]);
-      this.hasGeneratedBoard.set(false);
-      this.snackBar.open('Cartón eliminado', 'OK', { duration: 2000 });
-    }
+  private checkIfMobile() {
+    this.isMobile.set(window.innerWidth <= 768);
   }
 }

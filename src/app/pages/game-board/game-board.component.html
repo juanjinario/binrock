@@ -11,7 +11,7 @@
           <mat-chip-set>
             <mat-chip>
               <mat-icon>check_circle</mat-icon>
-              {{ markedCount() }}/{{ board().length }}
+              {{ markedCount() }}/{{ gameSettings().winningCount }}
             </mat-chip>
             @if (hasBingo()) {
               <mat-chip color="accent" highlighted>
@@ -57,7 +57,9 @@
             </svg>
           </div>
           <h2>¡Bienvenido a la Partida!</h2>
-          <p>Genera tu cartón aleatorio con 16 canciones. Una vez generado, no podrás cambiarlo.</p>
+          <p>Genera tu cartón aleatorio con {{ gameSettings().boardSize }} canciones. 
+             Necesitas marcar {{ gameSettings().winningCount }} para ganar. 
+             Una vez generado, no podrás cambiarlo.</p>
           <button mat-raised-button color="primary" (click)="generateNewBoard()" class="generate-button">
             <mat-icon>auto_awesome</mat-icon>
             Generar Mi Cartón
@@ -70,7 +72,7 @@
 
   @if (hasGeneratedBoard() && board().length > 0) {
     <mat-card class="bingo-board" @boardAnimation>
-      <mat-grid-list cols="4" rowHeight="1:1" gutterSize="8">
+      <mat-grid-list [cols]="gridCols()" rowHeight="1:1" gutterSize="8">
         @for (cell of board(); track cell.song.id; let i = $index) {
           <mat-grid-tile>
             <button 

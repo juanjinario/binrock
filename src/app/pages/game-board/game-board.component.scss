@@ -242,16 +242,6 @@
   .bingo-board {
     padding: 8px;
 
-    // Forzar 3 columnas en móviles usando CSS
-    ::ng-deep .mat-grid-list {
-      .mat-grid-list-cols-4 {
-        // Sobrescribir las 4 columnas por defecto
-        .mat-grid-tile {
-          width: calc(33.333% - 8px) !important;
-        }
-      }
-    }
-
     .song-cell {
       padding: 6px;
 
@@ -293,11 +283,13 @@
       }
 
       .song-title {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
       }
 
       .song-artist {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
       }
 
       .song-genre {

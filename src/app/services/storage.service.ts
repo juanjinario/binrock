@@ -4,6 +4,8 @@ export interface GameState {
   gameId: string;
   boardData: number[]; // IDs de las canciones en el tablero
   markedCells: boolean[]; // Estado de cada celda
+  boardSize: number; // Tamaño del tablero
+  winningCount: number; // Cantidad necesaria para ganar
   timestamp: number;
 }
 
@@ -14,11 +16,19 @@ export class StorageService {
   private readonly STORAGE_KEY = 'binrock_game_';
 
   // Guardar estado del juego
-  saveGameState(gameId: string, boardData: number[], markedCells: boolean[]): void {
+  saveGameState(
+    gameId: string, 
+    boardData: number[], 
+    markedCells: boolean[], 
+    boardSize: number, 
+    winningCount: number
+  ): void {
     const state: GameState = {
       gameId,
       boardData,
       markedCells,
+      boardSize,
+      winningCount,
       timestamp: Date.now()
     };
     localStorage.setItem(this.STORAGE_KEY + gameId, JSON.stringify(state));
@@ -34,11 +44,6 @@ export class StorageService {
     } catch {
       return null;
     }
-  }
-
-  // Verificar si ya existe un cartón para este juego
-  hasBoard(gameId: string): boolean {
-    return this.getGameState(gameId) !== null;
   }
 
   // Actualizar solo las celdas marcadas
@@ -71,10 +76,5 @@ export class StorageService {
         }
       }
     }
-  }
-
-  // Resetear el tablero (para debugging o reiniciar)
-  clearGameState(gameId: string): void {
-    localStorage.removeItem(this.STORAGE_KEY + gameId);
   }
 }

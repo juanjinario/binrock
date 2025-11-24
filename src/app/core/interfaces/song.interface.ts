@@ -11,3 +11,10 @@ export interface IGameConfig {
   maxBoardSize: number;
   freeSpace: boolean;
 }
+
+export interface IGameSettings {
+  timestamp: string;
+  boardSize: number;
+  winningCount: number;
+  gameId: string;
+}

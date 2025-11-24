@@ -1,0 +1,89 @@
+<div class="setup-container">
+  <mat-card class="setup-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>settings</mat-icon>
+        Configurar Nueva Partida
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="config-section">
+        <h3>Tamaño del Cartón</h3>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Selecciona el tamaño</mat-label>
+          <mat-select 
+            [value]="boardSize()" 
+            (selectionChange)="onBoardSizeChange($event.value)">
+            @for (option of boardSizeOptions; track option.value) {
+              <mat-option [value]="option.value">
+                <div class="option-content">
+                  <span class="option-label">{{ option.label }}</span>
+                  <span class="option-description">{{ option.description }}</span>
+                </div>
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <div class="preview-grid">
+          <div class="grid-preview" [attr.data-size]="boardSize()">
+            @for (cell of [].constructor(boardSize()); track $index) {
+              <div class="preview-cell"></div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="config-section">
+        <h3>Canciones Necesarias para Ganar</h3>
+        <div class="winning-config">
+          <mat-form-field appearance="outline" class="number-input">
+            <mat-label>Cantidad</mat-label>
+            <input 
+              matInput 
+              type="number" 
+              [value]="winningCount()"
+              [min]="1"
+              [max]="boardSize()"
+              (input)="onWinningCountChange(+$any($event.target).value)">
+            <mat-hint>De {{ boardSize() }} canciones totales</mat-hint>
+          </mat-form-field>
+
+          <div class="percentage-badge">
+            <mat-icon>percent</mat-icon>
+            <span>{{ getWinPercentage() }}%</span>
+          </div>
+        </div>
+
+        <mat-slider 
+          class="full-width"
+          [min]="1" 
+          [max]="boardSize()" 
+          [step]="1"
+          discrete>
+          <input matSliderThumb [value]="winningCount()" (input)="onWinningCountChange(+$any($event.target).value)">
+        </mat-slider>
+
+        <div class="info-box">
+          <mat-icon>info</mat-icon>
+          <p>
+            Los jugadores ganarán cuando marquen <strong>{{ winningCount() }} canciones</strong> 
+            de su cartón (no importa cuáles). Útil para canciones menos conocidas.
+          </p>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button 
+          mat-raised-button 
+          color="primary" 
+          (click)="createGame()"
+          class="create-button">
+          <mat-icon>rocket_launch</mat-icon>
+          Crear Juego
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

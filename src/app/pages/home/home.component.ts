@@ -16,8 +16,7 @@ export class HomeComponent {
   private router = inject(Router);
 
   createGame() {
-    // Genera un ID único para la partida basado en timestamp
-    const gameId = Date.now().toString(36);
-    this.router.navigate(['/game'], { queryParams: { id: gameId } });
+    // Navegar a la página de configuración del juego
+    this.router.navigate(['/game-setup']);
   }
 }
