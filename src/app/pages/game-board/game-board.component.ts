@@ -13,14 +13,9 @@ import { fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SONGS_DATA } from '../../data/songs.config';
-import { ISong, IGameSettings } from '../../core/interfaces/song.interface';
+import { ISong, IGameSettings, IBingoCell } from '../../core/interfaces/song.interface';
 import { StorageService } from '../../services/storage.service';
 import { GameConfigService } from '../../services/game-config.service';
-
-interface BingoCell {
-  song: ISong;
-  marked: boolean;
-}
 
 @Component({
   selector: 'app-game-board',
@@ -66,7 +61,7 @@ export class GameBoardComponent implements OnInit {
 
   // Signals
   gameId = signal<string>('');
-  board = signal<BingoCell[]>([]);
+  board = signal<IBingoCell[]>([]);
   hasGeneratedBoard = signal<boolean>(false);
   gameSettings = signal<IGameSettings>({
     timestamp: '',
@@ -146,7 +141,7 @@ export class GameBoardComponent implements OnInit {
       }));
     }
 
-    const cells: BingoCell[] = state.boardData.map((songId: number, index: number) => {
+    const cells: IBingoCell[] = state.boardData.map((songId: number, index: number) => {
       const song = this.songs.find(song => song.id === songId);
       return {
         song: song!,
@@ -172,7 +167,7 @@ export class GameBoardComponent implements OnInit {
     const shuffled = [...this.songs].sort(() => Math.random() - 0.5);
     const selectedSongs = shuffled.slice(0, this.gameSettings().boardSize);
     
-    const cells: BingoCell[] = selectedSongs.map(song => ({
+    const cells: IBingoCell[] = selectedSongs.map(song => ({
       song,
       marked: false
     }));

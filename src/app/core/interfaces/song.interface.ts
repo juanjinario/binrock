@@ -18,3 +18,8 @@ export interface IGameSettings {
   winningCount: number;
   gameId: string;
 }
+
+export interface IBingoCell {
+  song: ISong;
+  marked: boolean;
+}
