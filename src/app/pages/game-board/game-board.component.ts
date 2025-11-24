@@ -67,6 +67,7 @@ export class GameBoardComponent implements OnInit {
     timestamp: '',
     boardSize: 16,
     winningCount: 16,
+    showGenre: true,
     gameId: ''
   });
   isMobile = signal<boolean>(false);
@@ -137,7 +138,8 @@ export class GameBoardComponent implements OnInit {
       this.gameSettings.update(settings => ({
         ...settings,
         boardSize: state.boardSize,
-        winningCount: state.winningCount
+        winningCount: state.winningCount,
+        showGenre: state.showGenre ?? true // Fallback para partidas antiguas
       }));
     }
 
@@ -182,7 +184,8 @@ export class GameBoardComponent implements OnInit {
       boardData, 
       markedCells,
       this.gameSettings().boardSize,
-      this.gameSettings().winningCount
+      this.gameSettings().winningCount,
+      this.gameSettings().showGenre
     );
   }
 

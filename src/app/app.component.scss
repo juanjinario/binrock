@@ -3,6 +3,24 @@
   top: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  .logo-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    span {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  }
 }
 
 .spacer {
@@ -14,5 +32,4 @@
   max-width: 1200px;
   margin: 0 auto;
   min-height: calc(100vh - 64px);
-  background-color: #fafafa;
 }

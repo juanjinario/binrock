@@ -74,6 +74,23 @@
         </div>
       </div>
 
+      <div class="config-section">
+        <h3>Dificultad</h3>
+        <mat-checkbox 
+          [(ngModel)]="showGenre"
+          color="primary"
+          class="genre-checkbox">
+          Mostrar género en las canciones
+        </mat-checkbox>
+        <div class="info-box">
+          <mat-icon>lightbulb</mat-icon>
+          <p>
+            Si desactivas el género, los jugadores solo verán el título y artista,
+            haciendo el juego <strong>más difícil</strong> al no tener pistas adicionales.
+          </p>
+        </div>
+      </div>
+
       <div class="action-buttons">
         <button 
           mat-raised-button 

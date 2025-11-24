@@ -16,6 +16,7 @@ export interface IGameSettings {
   timestamp: string;
   boardSize: number;
   winningCount: number;
+  showGenre: boolean;
   gameId: string;
 }
 

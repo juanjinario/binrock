@@ -85,7 +85,9 @@
                 <div class="song-info">
                   <div class="song-title">{{ cell.song.title }}</div>
                   <div class="song-artist">{{ cell.song.artist }}</div>
-                  <div class="song-genre">{{ cell.song.genre }}</div>
+                  @if (gameSettings().showGenre) {
+                    <div class="song-genre">{{ cell.song.genre }}</div>
+                  }
                 </div>
               </div>
             </button>

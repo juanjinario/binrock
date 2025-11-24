@@ -13,9 +13,10 @@ export class GameConfigService {
   /**
    * Genera un nuevo ID de juego codificado con la configuración
    */
-  generateGameId(boardSize: number, winningCount: number): string {
+  generateGameId(boardSize: number, winningCount: number, showGenre: boolean): string {
     const timestamp = Date.now().toString(36);
-    const data = `${timestamp}_${boardSize}_${winningCount}`;
+    const genreFlag = showGenre ? '1' : '0';
+    const data = `${timestamp}_${boardSize}_${winningCount}_${genreFlag}`;
     return btoa(data);
   }
 
@@ -28,13 +29,15 @@ export class GameConfigService {
       const decoded = atob(gameId);
       const parts = decoded.split('_');
       
-      if (parts.length !== 3) {
+      // Soportar formato antiguo (3 partes) y nuevo (4 partes)
+      if (parts.length !== 3 && parts.length !== 4) {
         throw new Error('Invalid format');
       }
 
-      const [timestamp, boardSizeStr, winningCountStr] = parts;
+      const [timestamp, boardSizeStr, winningCountStr, genreFlag] = parts;
       const boardSize = parseInt(boardSizeStr, 10);
       const winningCount = parseInt(winningCountStr, 10);
+      const showGenre = genreFlag === '1'; // Default false para formato antiguo
 
       // Validar que los valores sean correctos
       if (
@@ -52,17 +55,19 @@ export class GameConfigService {
         timestamp,
         boardSize,
         winningCount,
+        showGenre,
         gameId
       };
     } catch (error) {
       // Fallback: Si falla la decodificación, usar valores por defecto
       console.warn('Invalid gameId, using default configuration', error);
-      const defaultGameId = this.generateGameId(this.DEFAULT_BOARD_SIZE, this.DEFAULT_WINNING_COUNT);
+      const defaultGameId = this.generateGameId(this.DEFAULT_BOARD_SIZE, this.DEFAULT_WINNING_COUNT, true);
       
       return {
         timestamp: Date.now().toString(36),
         boardSize: this.DEFAULT_BOARD_SIZE,
         winningCount: this.DEFAULT_WINNING_COUNT,
+        showGenre: true,
         gameId: defaultGameId
       };
     }

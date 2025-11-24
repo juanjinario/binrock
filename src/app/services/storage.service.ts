@@ -6,6 +6,7 @@ export interface GameState {
   markedCells: boolean[]; // Estado de cada celda
   boardSize: number; // Tamaño del tablero
   winningCount: number; // Cantidad necesaria para ganar
+  showGenre: boolean; // Mostrar género en las canciones
   timestamp: number;
 }
 
@@ -21,7 +22,8 @@ export class StorageService {
     boardData: number[], 
     markedCells: boolean[], 
     boardSize: number, 
-    winningCount: number
+    winningCount: number,
+    showGenre: boolean
   ): void {
     const state: GameState = {
       gameId,
@@ -29,6 +31,7 @@ export class StorageService {
       markedCells,
       boardSize,
       winningCount,
+      showGenre,
       timestamp: Date.now()
     };
     localStorage.setItem(this.STORAGE_KEY + gameId, JSON.stringify(state));

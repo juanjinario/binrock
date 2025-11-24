@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { GameConfigService } from '../../services/game-config.service';
 
 @Component({
@@ -23,7 +24,8 @@ import { GameConfigService } from '../../services/game-config.service';
     MatSelectModule,
     MatInputModule,
     MatSliderModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule
   ],
   templateUrl: './game-setup.component.html',
   styleUrl: './game-setup.component.scss'
@@ -34,6 +36,7 @@ export class GameSetupComponent {
 
   boardSize = signal<number>(16);
   winningCount = signal<number>(16);
+  showGenre = signal<boolean>(true);
 
   boardSizeOptions = [
     { value: 9, label: '3x3 (9 canciones)', description: 'Juego rápido' },
@@ -58,7 +61,8 @@ export class GameSetupComponent {
   createGame() {
     const gameId = this.gameConfigService.generateGameId(
       this.boardSize(),
-      this.winningCount()
+      this.winningCount(),
+      this.showGenre()
     );
     
     this.router.navigate(['/game'], { 
