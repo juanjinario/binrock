@@ -1,20 +1,14 @@
 import { InjectionToken } from '@angular/core';
+import { ISong, IGameConfig } from '../core/interfaces/song.interface';
 
-export interface Song {
-  id: number;
-  title: string;
-  artist: string;
-  genre: string;
-}
-
-export const GAME_CONFIG = {
+export const GAME_CONFIG: IGameConfig = {
   defaultBoardSize: 16,
   minBoardSize: 9,
   maxBoardSize: 25,
   freeSpace: false
 };
 
-export const MASTER_SONG_LIST: Song[] = [
+export const MASTER_SONG_LIST: ISong[] = [
   // Rock 80s
   { id: 1, title: 'Livin\' on a Prayer', artist: 'Bon Jovi', genre: 'Rock 80s' },
   { id: 2, title: 'Sweet Child O\' Mine', artist: 'Guns N\' Roses', genre: 'Rock 80s' },
@@ -93,7 +87,7 @@ export const MASTER_SONG_LIST: Song[] = [
   { id: 45, title: 'Gangnam Style', artist: 'PSY', genre: 'K-Pop' }
 ];
 
-export const SONGS_DATA = new InjectionToken<Song[]>('SONGS_DATA', {
+export const SONGS_DATA = new InjectionToken<ISong[]>('SONGS_DATA', {
   providedIn: 'root',
   factory: () => MASTER_SONG_LIST
 });

@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -9,11 +9,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
-import { MASTER_SONG_LIST, GAME_CONFIG, Song } from '../../data/songs.config';
+import { SONGS_DATA, GAME_CONFIG } from '../../data/songs.config';
+import { ISong } from '../../core/interfaces/song.interface';
 import { StorageService } from '../../services/storage.service';
 
 interface BingoCell {
-  song: Song;
+  song: ISong;
   marked: boolean;
 }
 
@@ -56,6 +57,8 @@ export class GameBoardComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   private storage = inject(StorageService);
 
+  constructor(@Inject(SONGS_DATA) private songs: ISong[]) {}
+
   // Signals
   gameId = signal<string>('');
   board = signal<BingoCell[]>([]);
@@ -94,7 +97,7 @@ export class GameBoardComponent implements OnInit {
 
   private loadBoardFromState(state: any) {
     const cells: BingoCell[] = state.boardData.map((songId: number, index: number) => {
-      const song = MASTER_SONG_LIST.find(s => s.id === songId);
+      const song = this.songs.find(s => s.id === songId);
       return {
         song: song!,
         marked: state.markedCells[index]
@@ -120,7 +123,7 @@ export class GameBoardComponent implements OnInit {
 
   private generateBoard() {
     // Algoritmo: seleccionar 16 canciones aleatorias de la lista maestra
-    const shuffled = [...MASTER_SONG_LIST].sort(() => Math.random() - 0.5);
+    const shuffled = [...this.songs].sort(() => Math.random() - 0.5);
     const selectedSongs = shuffled.slice(0, GAME_CONFIG.defaultBoardSize);
     
     const cells: BingoCell[] = selectedSongs.map(song => ({
