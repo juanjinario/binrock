@@ -57,7 +57,14 @@ export class GameBoardComponent implements OnInit {
   private storage = inject(StorageService);
   private gameConfigService = inject(GameConfigService);
 
-  constructor(@Inject(SONGS_DATA) private songs: ISong[]) {}
+  constructor(@Inject(SONGS_DATA) private songs: ISong[]) {
+    fromEvent(window, 'resize')
+      .pipe(
+        debounceTime(200),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => this.checkIfMobile());
+  }
 
   // Signals
   gameId = signal<string>('');
@@ -86,14 +93,6 @@ export class GameBoardComponent implements OnInit {
   ngOnInit() {
     // Detectar si es móvil
     this.checkIfMobile();
-    
-    // Suscribirse a resize con debounce y auto-cleanup
-    fromEvent(window, 'resize')
-      .pipe(
-        debounceTime(200),
-        takeUntilDestroyed()
-      )
-      .subscribe(() => this.checkIfMobile());
 
     // Limpiar juegos antiguos al cargar
     this.storage.cleanOldGames();
