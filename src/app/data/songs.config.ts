@@ -95,7 +95,25 @@ export const MASTER_SONG_LIST: ISong[] = [
   { id: 85, title: 'Demasiadas Mujeres', artist: 'C. Tangana', genre: 'Pop Latino' },
   { id: 86, title: 'El Fin del Mundo', artist: 'La La Love You, Axolotes Mexicanos', genre: 'Indie Pop Español' },
   { id: 87, title: 'Las de la Intuición', artist: 'Shakira', genre: 'Pop Latino' },
-  { id: 88, title: 'All I Want for Christmas Is You', artist: 'Mariah Carey', genre: 'Pop' }
+  { id: 88, title: 'All I Want for Christmas Is You', artist: 'Mariah Carey', genre: 'Pop' },
+  { id: 89, title: 'LA FALDA', artist: 'Myke Towers', genre: 'Reggaeton' },
+  { id: 90, title: 'La Isla Bonita', artist: 'Madonna', genre: 'Pop' },
+  { id: 91, title: 'Live Is Life - Live', artist: 'Opus', genre: 'Rock' },
+  { id: 92, title: 'Esta soy yo', artist: 'El Sueño de Morfeo', genre: 'Pop Español' },
+  { id: 93, title: 'What Time Is It', artist: 'Zac Efron, Vanessa Hudgens, Lucas Grabeel, Corbin Bleu, Ashley Tisdale, Monique Coleman, Disney', genre: 'Pop' },
+  { id: 94, title: 'Hips Don\'t Lie (feat. Wyclef Jean)', artist: 'Shakira, Wyclef Jean', genre: 'Pop Latino' },
+  { id: 95, title: 'Para toda la vida', artist: 'El Sueño de Morfeo', genre: 'Pop Español' },
+  { id: 96, title: 'Antes Muerta Que Sencilla', artist: 'María Isabel', genre: 'Pop Español' },
+  { id: 97, title: 'I\'ll Be There for You (Theme from Friends) - Single Version', artist: 'The Rembrandts', genre: 'Pop' },
+  { id: 98, title: 'Apologize', artist: 'Timbaland, OneRepublic', genre: 'Pop' },
+  { id: 99, title: 'Big Girls Don\'t Cry (Personal)', artist: 'Fergie', genre: 'Pop' },
+  { id: 100, title: 'Vuelve', artist: 'Juan Magán, Paulina Rubio, DCS', genre: 'Dance Latino' },
+  { id: 101, title: 'no tiene sentido', artist: 'Beéle', genre: 'Reggaeton' },
+  { id: 102, title: 'Still Luvin', artist: 'Delaossa, Quevedo, Bigla The Kid', genre: 'Urbano Latino' },
+  { id: 103, title: 'frente al mar', artist: 'Beéle', genre: 'Reggaeton' },
+  { id: 104, title: 'La player (Bandolera)', artist: 'Zion & Lennox', genre: 'Reggaeton' },
+  { id: 105, title: 'DtMF', artist: 'Bad Bunny', genre: 'Reggaeton' },
+  { id: 106, title: 'NUEVAYoL', artist: 'Bad Bunny', genre: 'Reggaeton' }
 ];
 
 export const SONGS_DATA = new InjectionToken<ISong[]>('SONGS_DATA', {
