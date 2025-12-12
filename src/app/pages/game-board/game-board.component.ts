@@ -164,8 +164,8 @@ export class GameBoardComponent implements OnInit {
   }
 
   private generateBoard() {
-    // Algoritmo: seleccionar N canciones aleatorias según boardSize
-    const shuffled = [...this.songs].sort(() => Math.random() - 0.5);
+    // Algoritmo: seleccionar N canciones aleatorias según boardSize usando Fisher-Yates
+    const shuffled = this.fisherYatesShuffle([...this.songs]);
     const selectedSongs = shuffled.slice(0, this.gameSettings().boardSize);
     
     const cells: IBingoCell[] = selectedSongs.map(song => ({
@@ -186,6 +186,14 @@ export class GameBoardComponent implements OnInit {
       this.gameSettings().winningCount,
       this.gameSettings().showGenre
     );
+  }
+
+  private fisherYatesShuffle<T>(array: T[]): T[] {
+    for (let currentIndex = array.length - 1; currentIndex > 0; currentIndex--) {
+      const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
   }
 
   toggleCell(index: number) {
