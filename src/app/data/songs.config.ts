@@ -9,82 +9,93 @@ export const GAME_CONFIG: IGameConfig = {
 };
 
 export const MASTER_SONG_LIST: ISong[] = [
-  // Rock 80s
-  { id: 1, title: 'Livin\' on a Prayer', artist: 'Bon Jovi', genre: 'Rock 80s' },
-  { id: 2, title: 'Sweet Child O\' Mine', artist: 'Guns N\' Roses', genre: 'Rock 80s' },
-  { id: 3, title: 'Eye of the Tiger', artist: 'Survivor', genre: 'Rock 80s' },
-  { id: 4, title: 'Don\'t Stop Believin\'', artist: 'Journey', genre: 'Rock 80s' },
-  { id: 5, title: 'Take On Me', artist: 'A-ha', genre: 'Rock 80s' },
-  
-  // Salsa
-  { id: 6, title: 'Vivir Mi Vida', artist: 'Marc Anthony', genre: 'Salsa' },
-  { id: 7, title: 'La Vida es un Carnaval', artist: 'Celia Cruz', genre: 'Salsa' },
-  { id: 8, title: 'Aguanile', artist: 'Héctor Lavoe', genre: 'Salsa' },
-  { id: 9, title: 'Llorarás', artist: 'Oscar D\'León', genre: 'Salsa' },
-  
-  // Reggaeton
-  { id: 10, title: 'Gasolina', artist: 'Daddy Yankee', genre: 'Reggaeton' },
-  { id: 11, title: 'Danza Kuduro', artist: 'Don Omar', genre: 'Reggaeton' },
-  { id: 12, title: 'Despacito', artist: 'Luis Fonsi ft. Daddy Yankee', genre: 'Reggaeton' },
-  { id: 13, title: 'Tusa', artist: 'Karol G ft. Nicki Minaj', genre: 'Reggaeton' },
-  { id: 14, title: 'Safaera', artist: 'Bad Bunny', genre: 'Reggaeton' },
-  { id: 41, title: 'Lo Que Pasó, Pasó', artist: 'Daddy Yankee', genre: 'Reggaeton' },
-
-  // Metal
-  { id: 15, title: 'Enter Sandman', artist: 'Metallica', genre: 'Metal' },
-  { id: 16, title: 'Chop Suey!', artist: 'System of a Down', genre: 'Metal' },
-  { id: 17, title: 'Master of Puppets', artist: 'Metallica', genre: 'Metal' },
-  { id: 18, title: 'Painkiller', artist: 'Judas Priest', genre: 'Metal' },
-  { id: 43, title: 'The Beautiful People', artist: 'Marilyn Manson', genre: 'Metal Industrial' },
-
-  // Pop Español
-  { id: 19, title: 'Corazón Partío', artist: 'Alejandro Sanz', genre: 'Pop Español' },
-  { id: 21, title: 'Hijo de la Luna', artist: 'Mecano', genre: 'Pop Español' },
-
-  // Rock Español
-  { id: 20, title: 'La Flaca', artist: 'Jarabe de Palo', genre: 'Rock Español' },
-  { id: 22, title: 'Me Gustas Tú', artist: 'Manu Chao', genre: 'Rock Español' },
-  { id: 23, title: 'Rayando el Sol', artist: 'Maná', genre: 'Rock Español' },
-  { id: 46, title: 'Clavado en un Bar', artist: 'Maná', genre: 'Rock Español' },
-
-  // Pop Internacional
-  { id: 24, title: 'Dancing Queen', artist: 'ABBA', genre: 'Disco' },
-  { id: 25, title: 'Billie Jean', artist: 'Michael Jackson', genre: 'Pop' },
-  { id: 26, title: 'Wannabe', artist: 'Spice Girls', genre: 'Pop 90s' },
-  { id: 27, title: 'I Will Survive', artist: 'Gloria Gaynor', genre: 'Disco' },
-  { id: 28, title: 'Bohemian Rhapsody', artist: 'Queen', genre: 'Rock' },
-  { id: 29, title: 'Shake It Off', artist: 'Taylor Swift', genre: 'Pop' },
-
-  // Rock Alternativo
-  { id: 30, title: 'Mr. Brightside', artist: 'The Killers', genre: 'Indie Rock' },
-  { id: 31, title: 'Wonderwall', artist: 'Oasis', genre: 'Britpop' },
-  { id: 32, title: 'Seven Nation Army', artist: 'The White Stripes', genre: 'Rock Alternativo' },
-  { id: 33, title: 'Smells Like Teen Spirit', artist: 'Nirvana', genre: 'Grunge' },
-  { id: 42, title: 'Don\'t Speak', artist: 'No Doubt', genre: 'Rock Alternativo' },
-
-  // Cumbia
-  { id: 35, title: 'El Listón de Tu Pelo', artist: 'Los Ángeles Azules', genre: 'Cumbia' },
-  { id: 47, title: 'Una Canción', artist: 'Los de Adentro', genre: 'Cumbia' },
-
-  // Regional Mexicano
-  { id: 34, title: 'La Chona', artist: 'Los Tucanes de Tijuana', genre: 'Regional Mexicano' },
-
-  // Pop Latino
-  { id: 36, title: 'Amor a la Mexicana', artist: 'Thalía', genre: 'Pop Latino' },
-  { id: 44, title: 'Pegate', artist: 'Ricky Martin', genre: 'Pop Latino' },
-
-  // Hip Hop
-  { id: 37, title: 'Lose Yourself', artist: 'Eminem', genre: 'Hip Hop' },
-  { id: 39, title: 'In Da Club', artist: '50 Cent', genre: 'Hip Hop' },
-
-  // R&B
-  { id: 38, title: 'Crazy in Love', artist: 'Beyoncé ft. Jay-Z', genre: 'R&B' },
-
-  // Funk
-  { id: 40, title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars', genre: 'Funk' },
-
-  // K-Pop
-  { id: 45, title: 'Gangnam Style', artist: 'PSY', genre: 'K-Pop' }
+  { id: 1, title: 'Without Me', artist: 'Eminem', genre: 'Hip Hop' },
+  { id: 2, title: 'Thrift Shop (feat. Wanz)', artist: 'Macklemore & Ryan Lewis', genre: 'Hip Hop' },
+  { id: 3, title: 'El Patio', artist: 'Pepe y Vizio, Delaossa, KIDDO', genre: 'Urbano Latino' },
+  { id: 4, title: 'Si Antes Te Hubiera Conocido', artist: 'KAROL G', genre: 'Reggaeton' },
+  { id: 5, title: 'Mi Lova', artist: 'Bad Gyal, Myke Towers', genre: 'Reggaeton' },
+  { id: 6, title: 'Be My Lover (feat. La Bouche) - 2023 Mix', artist: 'Hypaton, David Guetta, La Bouche', genre: 'Dance' },
+  { id: 7, title: 'Titanium (feat. Sia)', artist: 'David Guetta, Sia', genre: 'Dance' },
+  { id: 8, title: 'Do It To It', artist: 'ACRAZE, Cherish', genre: 'Dance' },
+  { id: 9, title: 'goosebumps', artist: 'Travis Scott', genre: 'Hip Hop' },
+  { id: 10, title: 'Guaya Guaya', artist: 'Don Omar', genre: 'Reggaeton' },
+  { id: 11, title: 'Atrévete-Te-Te', artist: 'Calle 13', genre: 'Reggaeton' },
+  { id: 12, title: 'Where Have You Been', artist: 'Rihanna', genre: 'Pop' },
+  { id: 13, title: 'Dancing Queen', artist: 'ABBA', genre: 'Pop' },
+  { id: 14, title: 'Mi gran noche', artist: 'Raphael', genre: 'Pop Español' },
+  { id: 15, title: 'I Want To Break Free', artist: 'Queen', genre: 'Rock' },
+  { id: 16, title: 'In Da Club', artist: '50 Cent', genre: 'Hip Hop' },
+  { id: 17, title: 'Where Is The Love?', artist: 'Black Eyed Peas', genre: 'Pop' },
+  { id: 18, title: 'Tití Me Preguntó', artist: 'Bad Bunny', genre: 'Reggaeton' },
+  { id: 19, title: 'DESPECHÁ', artist: 'ROSALÍA', genre: 'Pop Latino' },
+  { id: 20, title: 'Blinding Lights', artist: 'The Weeknd', genre: 'Pop' },
+  { id: 21, title: 'Animals', artist: 'Martin Garrix', genre: 'EDM' },
+  { id: 22, title: 'Rosas', artist: 'La Oreja de Van Gogh', genre: 'Pop Español' },
+  { id: 23, title: 'Vivir Así Es Morir de Amor', artist: 'Camilo Sesto', genre: 'Balada' },
+  { id: 24, title: 'Red Red Wine', artist: 'UB40', genre: 'Reggae' },
+  { id: 25, title: 'Umbrella', artist: 'Rihanna, JAY-Z', genre: 'Pop' },
+  { id: 26, title: 'California Dreamin\'', artist: 'The Beach Boys', genre: 'Rock' },
+  { id: 27, title: 'Californication', artist: 'Red Hot Chili Peppers', genre: 'Rock' },
+  { id: 28, title: 'Thrift Shop (feat. Wanz)', artist: 'Macklemore & Ryan Lewis', genre: 'Hip Hop' },
+  { id: 29, title: 'Los Tontos', artist: 'C. Tangana, Kiko Veneno', genre: 'Pop Latino' },
+  { id: 30, title: 'PUNTO 40', artist: 'Rauw Alejandro, Baby Rasta', genre: 'Reggaeton' },
+  { id: 31, title: 'Party In The U.S.A.', artist: 'Miley Cyrus', genre: 'Pop' },
+  { id: 32, title: 'I Gotta Feeling', artist: 'Black Eyed Peas', genre: 'Pop' },
+  { id: 33, title: 'Devuélveme a mi chica', artist: 'Hombres G', genre: 'Pop Rock Español' },
+  { id: 34, title: 'Cuando zarpa el amor', artist: 'Camela', genre: 'Tecno-rumba' },
+  { id: 35, title: 'Old Town Road', artist: 'Lil Nas X', genre: 'Hip Hop' },
+  { id: 36, title: 'bad guy', artist: 'Billie Eilish', genre: 'Pop' },
+  { id: 37, title: 'What Makes You Beautiful', artist: 'One Direction', genre: 'Pop' },
+  { id: 38, title: 'The Business', artist: 'Tiësto', genre: 'Dance' },
+  { id: 39, title: '19 Dias y 500 Noches', artist: 'Joaquín Sabina', genre: 'Pop Rock Español' },
+  { id: 40, title: 'Son de Amores', artist: 'Andy & Lucas', genre: 'Pop Flamenco' },
+  { id: 41, title: 'Tú Me Dejaste De Querer', artist: 'C. Tangana, Niño de Elche, La Húngara', genre: 'Flamenco Pop' },
+  { id: 42, title: 'Zapatillas', artist: 'El Canto Del Loco', genre: 'Pop Rock Español' },
+  { id: 43, title: 'Purpurina', artist: 'Alberto Gambino', genre: 'Pop Latino' },
+  { id: 44, title: 'Torero', artist: 'Chayanne', genre: 'Pop Latino' },
+  { id: 45, title: 'Propuesta Indecente', artist: 'Romeo Santos', genre: 'Bachata' },
+  { id: 46, title: 'Paseo', artist: 'Estopa', genre: 'Rumba Catalana' },
+  { id: 47, title: 'Sígueme Y Te Sigo', artist: 'Daddy Yankee', genre: 'Reggaeton' },
+  { id: 48, title: 'Duro De Verdad pt.2', artist: 'Los Sufridos, Bad Gyal', genre: 'Reggaeton' },
+  { id: 49, title: 'Santa', artist: 'Rvssian, Rauw Alejandro, Ayra Starr', genre: 'Reggaeton' },
+  { id: 50, title: 'Baby', artist: 'Justin Bieber, Ludacris', genre: 'Pop' },
+  { id: 51, title: 'Save Your Tears', artist: 'The Weeknd', genre: 'Pop' },
+  { id: 52, title: 'Flores Pa Tu Pelo', artist: 'DELLAFUENTE, Pepe y Vizio', genre: 'Urbano Latino' },
+  { id: 53, title: 'wiggy', artist: 'Young Miko', genre: 'Trap Latino' },
+  { id: 54, title: 'Coco Chanel', artist: 'Eladio Carrion, Bad Bunny', genre: 'Trap Latino' },
+  { id: 55, title: 'Sirenas', artist: 'Taburete', genre: 'Pop Rock Español' },
+  { id: 56, title: 'Tusa', artist: 'KAROL G, Nicki Minaj', genre: 'Reggaeton' },
+  { id: 57, title: 'Under Pressure', artist: 'Queen, David Bowie', genre: 'Rock' },
+  { id: 58, title: 'Se Preparó', artist: 'Ozuna', genre: 'Reggaeton' },
+  { id: 59, title: 'LA FAMA', artist: 'ROSALÍA, The Weeknd', genre: 'Pop Latino' },
+  { id: 60, title: 'PIENSO EN TU MIRÁ', artist: 'ROSALÍA', genre: 'Flamenco Pop' },
+  { id: 61, title: 'Hotline Bling', artist: 'Drake', genre: 'Hip Hop' },
+  { id: 62, title: 'Scary Monsters and Nice Sprites', artist: 'Skrillex', genre: 'Dubstep' },
+  { id: 63, title: 'En Que Estrella Estara', artist: 'Nena Daconte', genre: 'Pop Español' },
+  { id: 64, title: 'El Conjuntito', artist: 'El Bobe, Omar Montes', genre: 'Flamenco Urbano' },
+  { id: 65, title: 'Jacaranda', artist: 'Bad Gyal, Dubbel Dutch', genre: 'Reggaeton' },
+  { id: 66, title: 'DILUVIO', artist: 'Rauw Alejandro', genre: 'Reggaeton' },
+  { id: 67, title: 'Venezia', artist: 'Hombres G', genre: 'Pop Rock Español' },
+  { id: 68, title: 'La Madre de Jose', artist: 'El Canto Del Loco', genre: 'Pop Rock Español' },
+  { id: 69, title: 'Another Love', artist: 'Tom Odell', genre: 'Pop' },
+  { id: 70, title: 'Calm Down', artist: 'Rema, Selena Gomez', genre: 'Afrobeats' },
+  { id: 71, title: 'Meet Me Halfway', artist: 'Black Eyed Peas', genre: 'Pop' },
+  { id: 72, title: 'Knockin\' On Heaven\'s Door', artist: 'Bob Dylan', genre: 'Rock' },
+  { id: 73, title: 'POLARIS - Remix', artist: 'SAIKO, Quevedo, Feid, Mora', genre: 'Trap Latino' },
+  { id: 74, title: 'She Don\'t Give a Fo', artist: 'Duki, KHEA', genre: 'Trap Latino' },
+  { id: 75, title: 'Love Tonight', artist: 'Shouse, David Guetta', genre: 'Dance' },
+  { id: 76, title: 'In My Mind', artist: 'Dynoro, Gigi D\'Agostino', genre: 'Dance' },
+  { id: 77, title: 'Baby Don\'t Hurt Me', artist: 'David Guetta, Anne-Marie, Coi Leray', genre: 'Dance' },
+  { id: 78, title: 'Sweet Home Alabama', artist: 'Lynyrd Skynyrd', genre: 'Rock' },
+  { id: 79, title: 'Lo Que Pasó, Pasó', artist: 'Daddy Yankee', genre: 'Reggaeton' },
+  { id: 80, title: 'Blah Blah Blah', artist: 'Armin van Buuren', genre: 'Trance' },
+  { id: 81, title: 'Física o química', artist: 'Despistaos', genre: 'Pop Rock Español' },
+  { id: 82, title: 'Zorra - Remix', artist: 'Bad Gyal, Rauw Alejandro', genre: 'Reggaeton' },
+  { id: 84, title: 'Unwritten', artist: 'Natasha Bedingfield', genre: 'Pop' },
+  { id: 85, title: 'Demasiadas Mujeres', artist: 'C. Tangana', genre: 'Pop Latino' },
+  { id: 86, title: 'El Fin del Mundo', artist: 'La La Love You, Axolotes Mexicanos', genre: 'Indie Pop Español' },
+  { id: 87, title: 'Las de la Intuición', artist: 'Shakira', genre: 'Pop Latino' },
+  { id: 88, title: 'All I Want for Christmas Is You', artist: 'Mariah Carey', genre: 'Pop' }
 ];
 
 export const SONGS_DATA = new InjectionToken<ISong[]>('SONGS_DATA', {
