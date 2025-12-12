@@ -91,6 +91,7 @@ export const MASTER_SONG_LIST: ISong[] = [
   { id: 80, title: 'Blah Blah Blah', artist: 'Armin van Buuren', genre: 'Trance' },
   { id: 81, title: 'Física o química', artist: 'Despistaos', genre: 'Pop Rock Español' },
   { id: 82, title: 'Zorra - Remix', artist: 'Bad Gyal, Rauw Alejandro', genre: 'Reggaeton' },
+  { id: 83, title: 'Where Have You Been', artist: 'Rihanna', genre: 'Pop' },
   { id: 84, title: 'Unwritten', artist: 'Natasha Bedingfield', genre: 'Pop' },
   { id: 85, title: 'Demasiadas Mujeres', artist: 'C. Tangana', genre: 'Pop Latino' },
   { id: 86, title: 'El Fin del Mundo', artist: 'La La Love You, Axolotes Mexicanos', genre: 'Indie Pop Español' },
