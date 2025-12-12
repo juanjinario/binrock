@@ -46,14 +46,12 @@ export class GameSetupComponent {
 
   onBoardSizeChange(size: number) {
     this.boardSize.set(size);
-    // Si winningCount es mayor que el nuevo tamaño, ajustarlo
     if (this.winningCount() > size) {
       this.winningCount.set(size);
     }
   }
 
   onWinningCountChange(count: number) {
-    // Asegurar que no sea mayor que boardSize
     const validCount = Math.min(Math.max(1, count), this.boardSize());
     this.winningCount.set(validCount);
   }

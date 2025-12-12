@@ -16,7 +16,6 @@ export class HomeComponent {
   private router = inject(Router);
 
   createGame() {
-    // Navegar a la página de configuración del juego
     this.router.navigate(['/game-setup']);
   }
 }

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 
 export interface GameState {
   gameId: string;
-  boardData: number[]; // IDs de las canciones en el tablero
-  markedCells: boolean[]; // Estado de cada celda
-  boardSize: number; // Tamaño del tablero
-  winningCount: number; // Cantidad necesaria para ganar
-  showGenre: boolean; // Mostrar género en las canciones
+  boardData: number[];
+  markedCells: boolean[];
+  boardSize: number;
+  winningCount: number;
+  showGenre: boolean;
   timestamp: number;
 }
 
@@ -16,7 +16,6 @@ export interface GameState {
 export class StorageService {
   private readonly STORAGE_KEY = 'binrock_game_';
 
-  // Guardar estado del juego
   saveGameState(
     gameId: string, 
     boardData: number[], 
@@ -37,7 +36,6 @@ export class StorageService {
     localStorage.setItem(this.STORAGE_KEY + gameId, JSON.stringify(state));
   }
 
-  // Obtener estado del juego por ID
   getGameState(gameId: string): GameState | null {
     const data = localStorage.getItem(this.STORAGE_KEY + gameId);
     if (!data) return null;
@@ -49,7 +47,6 @@ export class StorageService {
     }
   }
 
-  // Actualizar solo las celdas marcadas
   updateMarkedCells(gameId: string, markedCells: boolean[]): void {
     const state = this.getGameState(gameId);
     if (state) {
@@ -59,7 +56,7 @@ export class StorageService {
     }
   }
 
-  // Limpiar juegos antiguos (más de 7 días)
+  /** Clean games older than 7 days */
   cleanOldGames(): void {
     const sevenDaysAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
     

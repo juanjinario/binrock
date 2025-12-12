@@ -66,7 +66,6 @@ export class GameBoardComponent implements OnInit {
       .subscribe(() => this.checkIfMobile());
   }
 
-  // Signals
   gameId = signal<string>('');
   board = signal<IBingoCell[]>([]);
   hasGeneratedBoard = signal<boolean>(false);
@@ -79,11 +78,9 @@ export class GameBoardComponent implements OnInit {
   });
   isMobile = signal<boolean>(false);
   
-  // Computed signals
   markedCount = computed(() => this.board().filter(cell => cell.marked).length);
   hasBingo = computed(() => this.markedCount() >= this.gameSettings().winningCount);
   gridCols = computed(() => {
-    // En móviles siempre 3 columnas, en desktop usar el tamaño configurado
     if (this.isMobile()) {
       return 3;
     }
@@ -91,29 +88,22 @@ export class GameBoardComponent implements OnInit {
   });
 
   ngOnInit() {
-    // Detectar si es móvil
     this.checkIfMobile();
-
-    // Limpiar juegos antiguos al cargar
     this.storage.cleanOldGames();
 
-    // Obtener el ID del juego desde los query params
     this.route.queryParams.subscribe(params => {
       const id = params['id'];
       
       if (!id) {
-        // Si no hay ID, usar configuración por defecto
         const defaultConfig = this.gameConfigService.decodeGameId('');
         this.gameSettings.set(defaultConfig);
         this.gameId.set(defaultConfig.gameId);
       } else {
-        // Decodificar la configuración desde el ID
         const config = this.gameConfigService.decodeGameId(id);
         this.gameSettings.set(config);
         this.gameId.set(id);
       }
       
-      // Verificar si ya existe un tablero guardado
       this.loadOrWaitForBoard();
     });
   }
@@ -122,23 +112,20 @@ export class GameBoardComponent implements OnInit {
     const savedState = this.storage.getGameState(this.gameId());
     
     if (savedState) {
-      // Cargar tablero existente desde localStorage
       this.loadBoardFromState(savedState);
       this.hasGeneratedBoard.set(true);
     } else {
-      // Esperando a que el usuario genere su cartón
       this.hasGeneratedBoard.set(false);
     }
   }
 
   private loadBoardFromState(state: any) {
-    // Actualizar configuración si está guardada en localStorage
     if (state.boardSize && state.winningCount) {
       this.gameSettings.update(settings => ({
         ...settings,
         boardSize: state.boardSize,
         winningCount: state.winningCount,
-        showGenre: state.showGenre ?? true // Fallback para partidas antiguas
+        showGenre: state.showGenre ?? true
       }));
     }
 
@@ -164,7 +151,6 @@ export class GameBoardComponent implements OnInit {
   }
 
   private generateBoard() {
-    // Algoritmo: seleccionar N canciones aleatorias según boardSize usando Fisher-Yates
     const shuffled = this.fisherYatesShuffle([...this.songs]);
     const selectedSongs = shuffled.slice(0, this.gameSettings().boardSize);
     
@@ -175,7 +161,6 @@ export class GameBoardComponent implements OnInit {
 
     this.board.set(cells);
     
-    // Guardar en localStorage con configuración completa
     const boardData = cells.map(cell => cell.song.id);
     const markedCells = cells.map(cell => cell.marked);
     this.storage.saveGameState(
@@ -201,11 +186,9 @@ export class GameBoardComponent implements OnInit {
     currentBoard[index].marked = !currentBoard[index].marked;
     this.board.set(currentBoard);
 
-    // Guardar estado actualizado
     const markedCells = currentBoard.map(cell => cell.marked);
     this.storage.updateMarkedCells(this.gameId(), markedCells);
 
-    // Verificar si hay BINGO
     if (this.hasBingo()) {
       this.showBingoAlert();
     }
@@ -232,7 +215,6 @@ export class GameBoardComponent implements OnInit {
       const resetBoard = this.board().map(cell => ({ ...cell, marked: false }));
       this.board.set(resetBoard);
       
-      // Actualizar localStorage
       const markedCells = resetBoard.map(cell => cell.marked);
       this.storage.updateMarkedCells(this.gameId(), markedCells);
     }

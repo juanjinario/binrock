@@ -29,7 +29,6 @@ export class GameConfigService {
       const decoded = atob(gameId);
       const parts = decoded.split('_');
       
-      // Soportar formato antiguo (3 partes) y nuevo (4 partes)
       if (parts.length !== 3 && parts.length !== 4) {
         throw new Error('Invalid format');
       }
@@ -37,9 +36,8 @@ export class GameConfigService {
       const [timestamp, boardSizeStr, winningCountStr, genreFlag] = parts;
       const boardSize = parseInt(boardSizeStr, 10);
       const winningCount = parseInt(winningCountStr, 10);
-      const showGenre = genreFlag === '1'; // Default false para formato antiguo
+      const showGenre = genreFlag === '1';
 
-      // Validar que los valores sean correctos
       if (
         isNaN(boardSize) || 
         isNaN(winningCount) || 
@@ -59,7 +57,6 @@ export class GameConfigService {
         gameId
       };
     } catch (error) {
-      // Fallback: Si falla la decodificación, usar valores por defecto
       console.warn('Invalid gameId, using default configuration', error);
       const defaultGameId = this.generateGameId(this.DEFAULT_BOARD_SIZE, this.DEFAULT_WINNING_COUNT, true);
       
